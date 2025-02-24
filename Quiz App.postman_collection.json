@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "fe127329-f989-4fec-8a88-5af1593e9801",
+		"name": "Quiz App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16366082"
+	},
+	"item": [
+		{
+			"name": "getAllQuestions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}:{{port}}/questions/all",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"questions",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addQuestion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"questionTitle\": \"Which keyword is used to handle exceptions in Python?\",\r\n    \"category\": \"Python\",\r\n    \"difficultyLevel\": \"Easy\",\r\n    \"option1\": \"try\",\r\n    \"option2\": \"catch\",\r\n    \"option3\": \"handle\",\r\n    \"option4\": \"except\",\r\n    \"rightAnswer\": \"try\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}:{{port}}/questions/add",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"questions",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generateQuizQuestions",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"questionTitle\": \"Which keyword is used to handle exceptions in Python?\",\r\n    \"category\": \"Python\",\r\n    \"difficultyLevel\": \"Easy\",\r\n    \"option1\": \"try\",\r\n    \"option2\": \"catch\",\r\n    \"option3\": \"handle\",\r\n    \"option4\": \"except\",\r\n    \"rightAnswer\": \"try\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}:{{port}}/questions/generate?category=Java&noOfQuestions=5",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"questions",
+						"generate"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Java"
+						},
+						{
+							"key": "noOfQuestions",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getQuestionsById",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    4,\r\n    7,\r\n    9,\r\n    12,\r\n    11\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}:{{port}}/questions/getQuestions",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"questions",
+						"getQuestions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getScore",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"qId\": 4,\r\n    \"qAnswer\": \"extends\"\r\n  },\r\n  {\r\n    \"qId\": 7,\r\n    \"qAnswer\": \"java.util\"\r\n  },\r\n  {\r\n    \"qId\": 9,\r\n    \"qAnswer\": \"final\"\r\n  },\r\n  {\r\n    \"qId\": 11,\r\n    \"qAnswer\": \"false\"\r\n  },\r\n  {\r\n    \"qId\": 12,\r\n    \"qAnswer\": \"Encapsulation\"\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}:{{port}}/questions/getScore",
+					"host": [
+						"{{url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"questions",
+						"getScore"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost",
+			"type": "string"
+		},
+		{
+			"key": "port",
+			"value": "8080",
+			"type": "string"
+		}
+	]
+}
