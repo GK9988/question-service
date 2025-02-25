@@ -1,5 +1,7 @@
 package org.garvk.questionservice.service;
 
+import org.apache.catalina.User;
+import org.garvk.questionservice.QuestionServiceApplication;
 import org.garvk.questionservice.model.Question;
 import org.garvk.questionservice.model.QuestionWrapperDto;
 import org.garvk.questionservice.model.UserResponseDto;
@@ -11,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class QuestionService {
@@ -78,8 +82,11 @@ public class QuestionService {
         int total = 0;
 
         try{
+
+            Map<Integer, Question> lQuestionMap = getAllQuestionsByUserResponse(aInUserResponses);
+
             for(UserResponseDto resp: aInUserResponses){
-                Question lQuestion = questionRepo.findById(resp.getqId()).orElse(null);
+                Question lQuestion = lQuestionMap.get(resp.getqId());
 
                 if(null == lQuestion){
                     throw new IllegalArgumentException("No Question with Id " + resp.getqId());
@@ -95,5 +102,23 @@ public class QuestionService {
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    private Map<Integer, Question> getAllQuestionsByUserResponse(List<UserResponseDto> aInUserResponses){
+        Map<Integer, Question> aOutQuestionMap = new HashMap<>();
+
+        List<Integer> lListOfIds = new ArrayList<>();
+
+        for(UserResponseDto resp: aInUserResponses){
+            lListOfIds.add(resp.getqId());
+        }
+
+        List<Question> lListOfQuestions = questionRepo.findAllById(lListOfIds);
+
+        for(Question q: lListOfQuestions){
+            aOutQuestionMap.put(q.getId(), q);
+        }
+
+        return aOutQuestionMap;
     }
 }
